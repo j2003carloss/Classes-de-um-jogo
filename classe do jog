@@ -1,0 +1,53 @@
+#include <stdio.h>
+#include <string.h>
+
+struct Heroi {
+    char nome[30];
+    char tipo[30];
+};
+
+void atacar(struct Heroi *heroi) {
+    printf("O %s %s atacou usando ", heroi->tipo, heroi->nome);
+    if (strcmp(heroi->tipo, "mago") == 0) {
+        printf("Magia");
+    } else if (strcmp(heroi->tipo, "monge") == 0) {
+        printf("artes marciais");
+    } else if (strcmp(heroi->tipo, "guerreiro") == 0) {
+        printf("Espada");
+    } else if (strcmp(heroi->tipo, "ninja") == 0) {
+        printf("shuriken");
+    } else {
+        printf("Um ataque indefinido");
+    }
+    printf("\n");
+}
+
+void imprimirOpcoes(struct Heroi *herois, int tamanho) {
+    printf("Escolha seu herói:\n");
+    for (int i = 0; i < tamanho; i++) {
+        printf("%d - %s\n", i + 1, herois[i].nome);
+    }
+}
+
+int main(void) {
+    struct Heroi herois[] = {
+        {"Gandalf", "mago"},
+        {"Aragorn", "guerreiro"},
+        {"Bruce Lee", "monge"},
+        {"Hanzo", "ninja"}
+    };
+
+    int escolha;
+    int num_herois = sizeof(herois) / sizeof(herois[0]);
+
+    imprimirOpcoes(herois, num_herois);
+    scanf("%d", &escolha);
+
+    if (escolha >= 1 && escolha <= num_herois) {
+        atacar(&herois[escolha - 1]);
+    } else {
+        printf("Escolha inválida.\n");
+    }
+
+    return 0;
+}
